@@ -1,5 +1,11 @@
 # MyMenu Mobile App
 
+MyMenu is a mobile application made for the students of MAHE colleges in Manipal. The app is based on a Django RESTFUL API hosted on Heroku which is used by the Flutter Native App to get Menu data in the form of JSON objects, which is then displayed as a list.
+
+Future challenges - 
+- [ ] Sort foodcourts college-wise.
+- [ ] To scale up this application to be used by all colleges around the country.
+
 ## Backend : Django RestFramework API
 
 Backend Developer: [Shivansh Anand](https://github/code-xD/)
@@ -24,3 +30,9 @@ For further details, feel free to search:
 - Filtering
 - django-filter
 - Django REST Framework Filtering
+
+## Frontend : Flutter Native App
+
+Frontend Developer: [Sayantan Karmakar](https://github.com/sayantank/)
+
+
