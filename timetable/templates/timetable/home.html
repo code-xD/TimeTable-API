@@ -1,0 +1,6 @@
+<form method="post" enctype="multipart/form-data">
+  <h1>Please wait while form is being uploaded because the server is trying to parse the details.</h1>
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Upload</button>
+</form>
