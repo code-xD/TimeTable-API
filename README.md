@@ -1,6 +1,6 @@
 # TimeTable-API
-In order to setup the files for developement-
-1.Create Virtualenv
+In order to setup the files for developement-\n
+1.Create Virtualenv\n
 2.pip install -r requirements.txt
 3.python manage.py makemigrations
 4.python manage.py migrate
