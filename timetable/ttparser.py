@@ -14,7 +14,6 @@ def dateparser(data):
     for st in date_list:
         if st == '':
             date_list.remove(st)
-    print(date_list)
     food_date = date(current_year, months.index(date_list[0])+1, int(date_list[1]))
     return food_date
 
