@@ -8,6 +8,7 @@ from .serializers import ItemSerializer, ItemFilter
 from rest_framework import generics, filters
 from rest_framework.response import Response
 from django.views.decorators.csrf import csrf_exempt
+
 # Create your views here.
 
 
@@ -20,7 +21,7 @@ def formuploadview(request):
             doc = form.save()
             for food_items in yield_food_items(settings.MEDIA_ROOT+'/'+str(doc.document)):
                 fooditem = FoodItem(item_date=food_items[1], item_name=food_items[0],
-                                    item_food_plan=food_items[2])
+                                    item_food_plan=food_items[2], item_foodcourt=doc.foodcourt)
                 fooditem.save()
             return redirect('/form/')
     else:
