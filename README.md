@@ -1,4 +1,9 @@
-# TimeTable-API
+# MyMenu Mobile App
+
+## Backend : Django RestFramework API
+## Frontend : Flutter Native App
+
+
 In order to setup the files for developement-</br>
 <ul>
        1.Create Virtualenv</br>
