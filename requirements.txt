@@ -1,11 +1,15 @@
 DateTime==4.3
+dj-database-url==0.5.0
 Django==2.2.2
 django-excel==0.0.10
 django-filter==2.1.0
+django-heroku==0.3.1
 djangorestframework==3.9.4
+gunicorn==19.9.0
 lml==0.0.9
 numpy==1.16.4
 pandas==0.24.2
+psycopg2==2.8.3
 pyexcel==0.5.14
 pyexcel-io==0.5.18
 pyexcel-webio==0.1.4
@@ -14,5 +18,6 @@ pytz==2019.1
 six==1.12.0
 sqlparse==0.3.0
 texttable==1.6.1
+whitenoise==4.1.2
 xlrd==1.2.0
 zope.interface==4.6.0
