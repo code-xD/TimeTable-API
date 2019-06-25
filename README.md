@@ -2,7 +2,7 @@
 
 ## Backend : Django RestFramework API
 
-Backend Developer: Shivansh Anand @ github.com/code-xD
+Backend Developer: [Shivansh Anand](https://github/code-xD/)
 
 To setup files for Development: </br>
 - Create virtualenv (optional)
