@@ -1,2 +1,2 @@
-web: gunicorn timetableAPI.wsgi
+web: gunicorn timetableAPI.wsgi --log-file -
 
