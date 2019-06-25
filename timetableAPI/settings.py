@@ -26,7 +26,7 @@ SECRET_KEY = '3@c0wwrke8eme@8jfysqkng)_e=v#77mk#_7^p*&6mx-isa&=6'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['timetable-api-manipal.herokuapp.com', 'localhost']
 
 
 # Application definition

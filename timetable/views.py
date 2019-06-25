@@ -7,10 +7,11 @@ from .ttparser import yield_food_items
 from .serializers import ItemSerializer, ItemFilter
 from rest_framework import generics, filters
 from rest_framework.response import Response
-
+from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
 
 
+@csrf_exempt
 def formuploadview(request):
     if request.method == 'POST':
         form = DocumentForm(request.POST, request.FILES)
