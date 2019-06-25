@@ -1,12 +1,12 @@
 # TimeTable-API
 In order to setup the files for developement-\n
--1.Create Virtualenv\n
--2.pip install -r requirements.txt
--3.python manage.py makemigrations
--4.python manage.py migrate
--5.python manage.py createsuperuser
--6.python manage.py runserver
--7.Now go to https://localhost:8000/form/
+_1.Create Virtualenv\n
+_2.pip install -r requirements.txt
+_3.python manage.py makemigrations
+_4.python manage.py migrate
+_5.python manage.py createsuperuser
+_6.python manage.py runserver
+_7.Now go to https://localhost:8000/form/
 If the site is visible then voila the django project has been setup.
 Go to: https://localhost:8000/get_item/ to do a get request of all the food items uploaded to the database 
        with the days they are being served and the scheme.
