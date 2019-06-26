@@ -2,6 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+class Item {
+  final String plan;
+  final String name;
+  final String date;
+  final String foodcourt;
+
+  Item(this.plan, this.name, this.date, this.foodcourt);
+}
+
 class ListPage extends StatefulWidget {
   final String plan;
   final String date;
@@ -81,11 +90,4 @@ class _ListPageState extends State<ListPage> {
   }
 }
 
-class Item {
-  final String plan;
-  final String name;
-  final String date;
-  final String foodcourt;
 
-  Item(this.plan, this.name, this.date, this.foodcourt);
-}
