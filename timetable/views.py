@@ -62,5 +62,10 @@ def AllFoodCourt(request):
     foodcourt = FoodCourt.objects.all()
     fc = []
     for fdc in foodcourt:
-        fc.append(model_to_dict(fdc))
+        username = fdc.user.username
+        fdd = model_to_dict(fdc)
+        fdd['username'] = username
+        fdd.pop('user')
+        fdd.pop('FID')
+        fc.append(fdd)
     return JsonResponse(fc, safe=False)
