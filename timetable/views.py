@@ -1,15 +1,15 @@
 from django.shortcuts import render, redirect
 from .forms import DocumentForm, FoodCourtForm
-from .models import Document, FoodItem, FoodCourt
-from django.http import HttpResponse
+from .models import FoodItem, FoodCourt
+from django.http import JsonResponse
 from django.conf import settings
 from .ttparser import yield_food_items
 from .serializers import ItemSerializer, ItemFilter
-from rest_framework import generics, filters
-from rest_framework.response import Response
+from rest_framework import generics
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.forms.models import model_to_dict
 
 # Create your views here.
 
@@ -56,3 +56,11 @@ def UserRegisterView(request):
                 fccreate.save()
         return redirect('/login/')
     return render(request, 'timetable/form.html')
+
+
+def AllFoodCourt(request):
+    foodcourt = FoodCourt.objects.all()
+    fc = []
+    for fdc in foodcourt:
+        fc.append(model_to_dict(fdc))
+    return JsonResponse(fc, safe=False)
