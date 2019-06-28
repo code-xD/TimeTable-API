@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from .forms import DocumentForm
-from .models import Document, FoodItem
+from .forms import DocumentForm, FoodCourtForm
+from .models import Document, FoodItem, FoodCourt
 from django.http import HttpResponse
 from django.conf import settings
 from .ttparser import yield_food_items
@@ -8,26 +8,32 @@ from .serializers import ItemSerializer, ItemFilter
 from rest_framework import generics, filters
 from rest_framework.response import Response
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 
 # Create your views here.
 
 
 @csrf_exempt
+@login_required
 def formuploadview(request):
     if request.method == 'POST':
-        form = DocumentForm(request.POST, request.FILES)
-        filename = str(request.FILES).split('.')
-        if form.is_valid():
-            doc = form.save()
+        f_form = FoodCourtForm(request.user, request.POST)
+        d_form = DocumentForm(request.POST, request.FILES)
+        if f_form.is_valid() and d_form.is_valid():
+            doc = d_form.save(request.user)
+            fcname = f_form.cleaned_data['Foodcourt']
             for food_items in yield_food_items(settings.MEDIA_ROOT+'/'+str(doc.document)):
                 fooditem = FoodItem(item_date=food_items[1], item_name=food_items[0],
-                                    item_food_plan=food_items[2], item_foodcourt=doc.foodcourt)
+                                    item_food_plan=food_items[2], item_foodcourt=fcname)
                 fooditem.save()
             return redirect('/form/')
     else:
-        form = DocumentForm()
-    return render(request, 'timetable/home.html', {
-        'form': form
+        d_form = DocumentForm()
+        f_form = FoodCourtForm(request.user)
+    return render(request, 'timetable/document.html', {
+        'formd': d_form,
+        'formf': f_form
     })
 
 
@@ -35,3 +41,18 @@ class ItemReturnView(generics.ListAPIView):
     queryset = FoodItem.objects.all()
     serializer_class = ItemSerializer
     filter_class = ItemFilter
+
+
+def UserRegisterView(request):
+    if request.method == 'POST':
+        print(request.POST)
+        req = request.POST
+        if req['password1'] == req['password2']:
+            user = User.objects.create_user(
+                req['username'], req['email'], req['password1'])
+            user.save()
+            for fc in req.getlist('foodcourt'):
+                fccreate = FoodCourt(name=fc, user=user)
+                fccreate.save()
+        return redirect('/login/')
+    return render(request, 'timetable/form.html')

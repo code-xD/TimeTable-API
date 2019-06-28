@@ -1,0 +1,18 @@
+<form method='POST' action="/register/">
+  {% csrf_token %}
+    <fieldset id='value'>
+        <legend>Register</legend>
+        <label>Username: <input type="text" name="username"></label><br>
+        <label>Email: <input type="text" name="email"></label><br>
+        <label>Password: <input type="password" name="password1"></label><br>
+        <label>Confirm Password: <input type="password" name="password2"></label><br>
+        <label id='AddValue'>FoodCourt(s): <input type="text" name="foodcourt"><br></label>
+        <input value="Add" onclick="addvalue()" id='value' type="button">
+        <input type="submit" value="Submit">
+    </fieldset>
+</form>
+<script type="text/javascript">
+  function addvalue(){
+      document.getElementById('AddValue').innerHTML+='<label>Franchise: <input type="text" name="foodcourt"></label><br>';
+  }
+</script>
