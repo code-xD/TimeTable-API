@@ -14,7 +14,8 @@ class Item {
 class ListPage extends StatefulWidget {
   final String plan;
   final String date;
-  ListPage({@required this.plan, @required this.date});
+  final String fc;
+  ListPage({@required this.plan, @required this.date, @required this.fc});
 
   @override
   _ListPageState createState() => _ListPageState();
@@ -23,7 +24,7 @@ class ListPage extends StatefulWidget {
 class _ListPageState extends State<ListPage> {
   Future<List<Item>> _getItems() async {
     var data = await http.get(
-        "http://timetable-api-manipal.herokuapp.com/get_item/?item_food_plan=${widget.plan}&item_name=&item_date=${widget.date}&item_food_court=");
+        "http://timetable-api-manipal.herokuapp.com/get_item/?item_food_plan=${widget.plan}&item_name=&item_date=${widget.date}&item_food_court=${widget.fc}");
 
     var jsonData = json.decode(data.body);
 
@@ -45,7 +46,11 @@ class _ListPageState extends State<ListPage> {
         iconTheme: IconThemeData(color: Colors.white),
         title: Text(
           "MyMenu",
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 25,
+            fontWeight: FontWeight.w700,
+          ),
         ),
         shape: new RoundedRectangleBorder(
           borderRadius: new BorderRadius.only(
@@ -73,9 +78,15 @@ class _ListPageState extends State<ListPage> {
                         style: TextStyle(
                           color: Colors.orange,
                           fontWeight: FontWeight.w700,
+                          fontSize: 20,
                         ),
                       ),
-                      subtitle: Text(snapshot.data[index].foodcourt),
+                      subtitle: Text(
+                        snapshot.data[index].foodcourt,
+                        style: TextStyle(
+                          fontSize: 17,
+                        ),
+                      ),
                     ),
                     shape: new RoundedRectangleBorder(
                         borderRadius: new BorderRadius.circular(15.0)),
@@ -89,5 +100,3 @@ class _ListPageState extends State<ListPage> {
     );
   }
 }
-
-
