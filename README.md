@@ -23,7 +23,8 @@ $ python manage.py runserver
 
 #### API Endpoints
 - **GET /get_items/** - </br> gets all fooditems stored.
-- **GET /get_item/?item_food_plan=BREAKFAST&item_name=&item_date=2019-04-08** - </br> gets fooditems for specified meal and date.
+- **GET /get_item/?item_food_plan=BREAKFAST&item_name=&item_date=2019-04-08&item_foodcourt=FC1-admin** - </br> gets fooditems for specified meal, date and foodcourt.
+- **GET /getfoodcourt/** - </br> gets all the foodcourts present in database.
 
 For further details, feel free to search:
 - REST APIs
