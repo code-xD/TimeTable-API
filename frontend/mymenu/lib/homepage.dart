@@ -27,15 +27,19 @@ class _HomePageState extends State<HomePage> {
   Future<List<FoodCourt>> _getFoodCourt() async {
     var data = await http
         .get("http://timetable-api-manipal.herokuapp.com/getfoodcourt");
-    var jsonData = json.decode(data.body);
+    if (data.statusCode == 200) {
+      var jsonData = json.decode(data.body);
 
-    List<FoodCourt> fcs = [];
+      List<FoodCourt> fcs = [];
 
-    for (var u in jsonData) {
-      FoodCourt fc = FoodCourt(u["name"]);
-      fcs.add(fc);
+      for (var u in jsonData) {
+        FoodCourt fc = FoodCourt(u["name"]);
+        fcs.add(fc);
+      }
+      return fcs;
+    } else {
+      throw Exception('Failed to load internet');
     }
-    return fcs;
   }
 
   Future<Null> _selectDate(BuildContext context) async {
@@ -108,8 +112,16 @@ class _HomePageState extends State<HomePage> {
                       );
                     }).toList(),
                   );
+                } else if(snapshot.hasError) {
+                  return Center(child: Text("Failed to load internet"));
                 } else {
-                  return CircularProgressIndicator();
+                  return Column(
+                    children: <Widget>[
+                      CircularProgressIndicator(),
+                      SizedBox(height: 10,),
+                      Text("Make sure your internet is working.")
+                    ],
+                  );
                 }
               }),
           SizedBox(

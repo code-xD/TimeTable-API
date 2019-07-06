@@ -126,6 +126,9 @@ class DevPage extends StatelessWidget {
           ),
         ],
       ),
+      persistentFooterButtons: <Widget>[
+        Text("v1.0.0")
+      ],
     );
   }
 
