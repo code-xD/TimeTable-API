@@ -67,7 +67,7 @@ class _HomePageState extends State<HomePage> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return DropdownButton<String>(
-              hint: Text("Foodcourt"),
+              hint: Text("Foodcourt", style: TextStyle(fontSize: 25.0)),
               value: selectedFc,
               onChanged: (newValue) {
                 setState(() {
@@ -77,7 +77,7 @@ class _HomePageState extends State<HomePage> {
               },
               items: snapshot.data.map((fc) {
                 return DropdownMenuItem<String>(
-                  child: Text(fc.name),
+                  child: Text(fc.name, style: TextStyle(fontSize: 25.0)),
                   value: fc.name,
                 );
               }).toList(),
@@ -102,6 +102,7 @@ class _HomePageState extends State<HomePage> {
     return Container(
       padding: EdgeInsets.only(top: 30.0),
       child: DropdownButton(
+        hint: Text("Meal", style: TextStyle(fontSize: 25.0)),
         value: selectedPlan,
         onChanged: (newValue) {
           setState(() {
@@ -180,30 +181,27 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                       SizedBox(
-                        width: 20.0,
+                        width: 10.0,
                       ),
-                      RaisedButton(
+                      IconButton(
                         onPressed: () => _selectDate(context),
-                        child: Text('Select date',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                            )),
                         color: Colors.orange,
-                        shape: new RoundedRectangleBorder(
-                            borderRadius: new BorderRadius.circular(30.0)),
+                        icon: Icon(Icons.calendar_today),
+                        iconSize: 30.0,
                       ),
                     ],
                   ),
                 ),
                 _buildDropdownMeal(),
                 Container(
-                  padding: EdgeInsets.only(top:30.0),
+                  padding: EdgeInsets.only(top:50.0),
                   child: RaisedButton(
+                    padding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+                    elevation: 5.0,
                     child: Text("Search",
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 20,
+                          fontSize: 30,
                           fontWeight: FontWeight.w700,
                         )),
                     color: Colors.orange,
