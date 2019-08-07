@@ -17,6 +17,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  
   DateTime selectedDate = DateTime.now();
   String date = DateFormat('yyyy-MM-dd').format(DateTime.now());
   List<String> plans = ["Breakfast", "Lunch", "Snacks", "Dinner"];
@@ -58,146 +59,176 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  _buildDropdownFc() {
+    return Container(
+      padding: EdgeInsets.only(top: 30.0),
+      child: FutureBuilder<List<FoodCourt>>(
+        future: _getFoodCourt(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return DropdownButton<String>(
+              hint: Text("Foodcourt"),
+              value: selectedFc,
+              onChanged: (newValue) {
+                setState(() {
+                  selectedFc = newValue;
+                  print(selectedFc);
+                });
+              },
+              items: snapshot.data.map((fc) {
+                return DropdownMenuItem<String>(
+                  child: Text(fc.name),
+                  value: fc.name,
+                );
+              }).toList(),
+            );
+          } else if(snapshot.hasError) {
+            return Center(child: Text("Failed to load internet"));
+          } else {
+            return Column(
+              children: <Widget>[
+                CircularProgressIndicator(),
+                SizedBox(height: 10,),
+                Text("Make sure your internet is working.")
+              ],
+            );
+          }
+        }
+      ),
+    );
+  }
+
+  _buildDropdownMeal() {
+    return Container(
+      padding: EdgeInsets.only(top: 30.0),
+      child: DropdownButton(
+        value: selectedPlan,
+        onChanged: (newValue) {
+          setState(() {
+            selectedPlan = newValue;
+          });
+        },
+        items: plans.map((plan) {
+          return DropdownMenuItem(
+            child: new Text(
+              plan,
+              style: TextStyle(fontSize: 25),
+            ),
+            value: plan,
+          );
+        }).toList(),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: <Widget>[
-          SizedBox(height: 40),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
-              IconButton(
-                icon: Icon(Icons.code),
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => DevPage()));
-                },
-                iconSize: 40.0,
-                color: Colors.orange,
-              ),
-            ],
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          Center(
-            child: Text(
-              'MyMenu',
-              style: TextStyle(
-                fontSize: 75,
-                fontWeight: FontWeight.w700,
-                color: Colors.orange,
-              ),
-            ),
-          ),
-          SizedBox(height: 30),
-          FutureBuilder<List<FoodCourt>>(
-              future: _getFoodCourt(),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  return DropdownButton<String>(
-                    hint: Text("Select"),
-                    value: selectedFc,
-                    onChanged: (newValue) {
-                      setState(() {
-                        selectedFc = newValue;
-                        print(selectedFc);
-                      });
-                    },
-                    items: snapshot.data.map((fc) {
-                      return DropdownMenuItem<String>(
-                        child: Text(fc.name),
-                        value: fc.name,
-                      );
-                    }).toList(),
-                  );
-                } else if(snapshot.hasError) {
-                  return Center(child: Text("Failed to load internet"));
-                } else {
-                  return Column(
-                    children: <Widget>[
-                      CircularProgressIndicator(),
-                      SizedBox(height: 10,),
-                      Text("Make sure your internet is working.")
-                    ],
-                  );
-                }
-              }),
-          SizedBox(
-            height: 30,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text(
-                date,
-                style: TextStyle(
-                  fontSize: 25,
-                ),
-              ),
-              SizedBox(
-                width: 20.0,
-              ),
-              RaisedButton(
-                onPressed: () => _selectDate(context),
-                child: Text('Select date',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                    )),
-                color: Colors.orange,
-                shape: new RoundedRectangleBorder(
-                    borderRadius: new BorderRadius.circular(30.0)),
-              ),
-            ],
-          ),
-          SizedBox(height: 30),
-          DropdownButton(
-            value: selectedPlan,
-            onChanged: (newValue) {
-              setState(() {
-                selectedPlan = newValue;
-              });
-            },
-            items: plans.map((plan) {
-              return DropdownMenuItem(
-                child: new Text(
-                  plan,
-                  style: TextStyle(fontSize: 25),
-                ),
-                value: plan,
-              );
-            }).toList(),
-          ),
-          SizedBox(
-            height: 30,
-          ),
-          RaisedButton(
-            child: Text("Search",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                  fontWeight: FontWeight.w400,
-                )),
-            color: Colors.orange,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0.0,
+        iconTheme: IconThemeData(
+          color: Colors.orange,
+          size: 20.0,
+        ),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.developer_mode),
             onPressed: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => ListPage(
-                        plan: selectedPlan.toUpperCase(),
-                        date: date,
-                        fc: "$selectedFc-admin",
-                      ),
+                  builder: (context) => DevPage()
                 ),
               );
             },
-            shape: new RoundedRectangleBorder(
-                borderRadius: new BorderRadius.circular(30.0)),
-          ),
+          )
         ],
       ),
+      body: Stack(
+        children: <Widget>[
+          Container(
+            color: Colors.white,
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            padding: EdgeInsets.fromLTRB(5.0, 20.0, 5.0, 20.0),
+            child: Column(
+              children: <Widget>[
+                Container(
+                  padding: EdgeInsets.only(top: 30.0),
+                  child: Center(
+                    child: Text(
+                      'MyMenu',
+                      style: TextStyle(
+                        fontSize: 75,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.orange,
+                      ),
+                    ),
+                  ),
+                ),
+                _buildDropdownFc(),
+                Container(
+                  padding: EdgeInsets.only(top: 30.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        date,
+                        style: TextStyle(
+                          fontSize: 25,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 20.0,
+                      ),
+                      RaisedButton(
+                        onPressed: () => _selectDate(context),
+                        child: Text('Select date',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                            )),
+                        color: Colors.orange,
+                        shape: new RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(30.0)),
+                      ),
+                    ],
+                  ),
+                ),
+                _buildDropdownMeal(),
+                Container(
+                  padding: EdgeInsets.only(top:30.0),
+                  child: RaisedButton(
+                    child: Text("Search",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w700,
+                        )),
+                    color: Colors.orange,
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ListPage(
+                                plan: selectedPlan.toUpperCase(),
+                                date: date,
+                                fc: "$selectedFc-admin",
+                              ),
+                        ),
+                      );
+                      print("$selectedFc-admin");
+                    },
+                    shape: new RoundedRectangleBorder(
+                        borderRadius: new BorderRadius.circular(30.0)),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      )
     );
   }
 }
