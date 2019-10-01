@@ -49,8 +49,8 @@ class _ListPageState extends State<ListPage> {
             title: Text(itemslist.items[index].plan),
             subtitle: Column(
               children: <Widget>[
-                Text(itemslist.items[index].name),
                 Text(itemslist.items[index].date),
+                Text(itemslist.items[index].name),
               ],
             ),
           );

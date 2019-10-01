@@ -117,6 +117,47 @@ class DevPage extends StatelessWidget {
                   },
                 ),
               ),
+              SizedBox(
+                height: 100,
+                child: GestureDetector(
+                  child: Card(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        SizedBox(
+                          width: 20,
+                        ),
+                        CircleAvatar(
+                          backgroundImage: AssetImage('assets/pp2.jpg'),
+                          radius: 30,
+                        ),
+                        SizedBox(
+                          width: 20,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Text(
+                              'Anindit Karmakar',
+                              style: TextStyle(
+                                color: Colors.orange,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                              ),
+                            ),
+                            Text('Software Engineer at Microsoft'),
+                            Text('aninditkarmakar@gmail.com')
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  onDoubleTap: () {
+                    _launchShivuURL();
+                  },
+                ),
+              ),
               Icon(
                 Icons.more_horiz,
                 size: 40,
@@ -126,6 +167,9 @@ class DevPage extends StatelessWidget {
           ),
         ],
       ),
+      persistentFooterButtons: <Widget>[
+        Text("v1.0.0")
+      ],
     );
   }
 
