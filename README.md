@@ -36,4 +36,7 @@ For further details, feel free to search:
 
 Frontend Developer: [Sayantan Karmakar](https://github.com/sayantank/)
 
+### Built with
 
+* Flutter
+* Dart

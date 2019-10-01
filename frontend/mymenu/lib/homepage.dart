@@ -21,7 +21,7 @@ class _HomePageState extends State<HomePage> {
   DateTime selectedDate = DateTime.now();
   String date = DateFormat('yyyy-MM-dd').format(DateTime.now());
   List<String> plans = ["Breakfast", "Lunch", "Snacks", "Dinner"];
-  String selectedPlan = "Breakfast";
+  String selectedPlan = "Lunch";
   String selectedFc;
   List<FoodCourt> fclist;
 
@@ -134,7 +134,7 @@ class _HomePageState extends State<HomePage> {
         ),
         actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.developer_mode),
+            icon: Icon(Icons.android),
             onPressed: () {
               Navigator.push(
                 context,
