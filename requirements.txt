@@ -2,7 +2,7 @@ DateTime==4.3
 Django==2.2.2
 django-excel==0.0.10
 django-filter==2.1.0
-djangorestframework==3.9.4
+djangorestframework==3.11.2
 lml==0.0.9
 numpy==1.16.4
 pandas==0.24.2
