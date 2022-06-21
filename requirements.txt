@@ -4,7 +4,7 @@ django-excel==0.0.10
 django-filter==2.1.0
 djangorestframework==3.9.4
 lml==0.0.9
-numpy==1.16.4
+numpy==1.22.0
 pandas==0.24.2
 pyexcel==0.5.14
 pyexcel-io==0.5.18
